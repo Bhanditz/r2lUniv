@@ -6,19 +6,19 @@
   This function generates a LaTeX main document design to include some files built by \code{rtlu}.
 }
 \usage{
-rtluMainFile(fileList, fileName = "main.tex")
+rtluMainFile(fileName = "main.tex",text="")
 }
 
 \arguments{
-  \item{fileList}{\code{list}; list of the outfiles, files to be included in the main document.}
   \item{fileName}{\code{characters}; name of the main document.}
+  \item{text}{text to be include in the LaTeX document, between the
+    'begin{document}' and 'end{document}'
+  }
 }
-\details{
-  \code{rtluMainFile} generates a LaTeX main document including some
-  files built by \code{rtlu}.
 
-  It creates a file "main.tex". You need to have a LaTeX compiler and
-  \code{epsfig} package.
+\details{
+  \code{rtluMainFile} generates a LaTeX main document ready to include some
+  files built by \code{rtlu}.
 }
 \value{
   A LaTeX file ("main.tex" by default).
@@ -59,11 +59,8 @@ Data are available on line: \url{http://christophe.genolini.free.fr/EPO/EPO2007-
   #          rtluMainFile           #
    # # # # # # # # # # # # # # # # #
 
-### Creates a file name "main.tex" that includes "file1.tex" and "file2.tex"
-rtluMainFile(c("file1.tex","file2.tex"))
-
-### Creates a file name "main2.tex" that includes "file1.tex" and "file2.tex"
-rtluMainFile(c("file1.tex","file2.tex"),fileName="main2.tex")
+### Creates a file name "main.tex" that includes "file1.tex"
+rtluMainFile(text=("\\input{file1.tex}"))
 }
 
 

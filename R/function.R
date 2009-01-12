@@ -1,6 +1,12 @@
+#############################
+### Print (optional) the number and the name of a variable
+### Print the variable type, the \begin{tabular} and the title of each column.
+### The number of column and the title change according to the variable type.
+### Used in: r2lNominal, r2lOrdinal, r2lDiscrete, r2lContinuous
+
 r2lBeginTitle <- function(variable){
     cat("  \\begin{center}\n")
-    cat("    \\addtolength{\\leftskip}{-4cm}\\addtolength{\\rightskip}{-4cm}\n")
+    cat("    \\addtolength{\\leftskip}{-4cm}\\addtolength{\\rightskip}{-4cm}\n\n")
 
     if(class(variable)[1]=="factor" || class(variable)[1]=="character"){
         nbColumn <- 2
@@ -41,20 +47,29 @@ r2lBeginTitle <- function(variable){
     ",sep="")
 }
 
-r2lFrequency <- function(variable,latexNext){
+
+#############################
+### Print each Frequency, its size and frequency
+### Used in: r2lNominal, r2lOrdinal, r2lDiscrete
+
+r2lFrequency <- function(variable){
     cat("      \\begin{tabular}{@{}l@{ : }cl@{}}\n")
     tableVar <- table(variable)
     sumVar <- sum(tableVar)
     for(i in 1:nrow(tableVar)){
-        cat("        ",labels(tableVar[i]),"&",tableVar[i][[1]],"&(")
+        cat("           ",labels(tableVar[i]),"&",tableVar[i][[1]],"&(")
         cat(format(tableVar[i][[1]]/sumVar*100,digits=3))
         cat("\\%) \\\\\n")
     }
-    cat("      \\end{tabular}\n")
-    cat("   ",latexNext)
+    cat("          \\end{tabular}\n")
 }
 
-r2lSummary <- function(variable,latexNext){
+
+#############################
+### Print quartiles (for ordered, discrete and continuous), mean and var (for discrete and continuous)
+### Used in: r2lOrdinal, r2lDiscrete, r2lContinuous
+
+r2lSummary <- function(variable){
   cat("      \\begin{tabular}{@{}l@{ : }l@{}}\n")
   if(class(variable)[1]=="ordered"){
     quartile <- summary(as.integer(variable))
@@ -76,10 +91,14 @@ r2lSummary <- function(variable,latexNext){
     cat("        Max.   &",format(quartile[6],digits=3),"\\\\\n")
   }
   cat("      \\end{tabular}\n")
-  cat("   ",latexNext)
 }
 
-r2lBarplot <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
+
+#############################
+### Compute a barplot, save it in a file of type 'type' and print the LaTeX code
+### Used in: r2lNominal, r2lOrdinal, r2lDiscrete
+
+r2lBarplot <- function(variable,graphDir="",graphName="V",type="png"){
   if(graphDir==""){
     nomBarplot <- paste(graphName,"-barplot",sep="")
   }else{
@@ -92,14 +111,17 @@ r2lBarplot <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
   }
   barplot(tabVar,col="grey",main="",xlab="",ylab="")
   savePlot(filename=nomBarplot,type=type)
-  cat("      \\begin{tabular}{@{}l@{}}
-        \\includegraphics[width=3cm]{",nomBarplot,"}
-      \\end{tabular}
-   ",latexNext,sep="")
+  cat("          \\begin{tabular}{@{}l@{}}
+            \\includegraphics[width=3cm]{",nomBarplot,"}
+          \\end{tabular}\n",sep="")
 }
 
 
-r2lHist <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
+#############################
+### Compute a histogram, save it in file of type 'type' and print the LaTeX code
+### Used in: r2lContinuous
+
+r2lHist <- function(variable,graphDir="",graphName="V",type="png"){
   if(graphDir==""){
     nomHist <- paste(graphName,"-hist",sep="")
   }else{
@@ -107,15 +129,17 @@ r2lHist <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
   }
   hist(variable,col="grey",main="",xlab="",ylab="")
   savePlot(filename=nomHist,type=type)
-  cat("
-      \\begin{tabular}{@{}l@{}}
-         \\includegraphics[width=3cm]{",nomHist,"}
-      \\end{tabular}
-  ",latexNext,sep="")
+  cat("          \\begin{tabular}{@{}l@{}}
+             \\includegraphics[width=3cm]{",nomHist,"}
+          \\end{tabular}\n",sep="")
 }
 
 
-r2lBoxplot <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
+#############################
+### Compute a boxplot, save it in a postscript file and print the LaTeX code
+### Used in: r2lDiscrete, r2lContinuous
+
+r2lBoxplot <- function(variable,graphDir="",graphName="V",type="png"){
   if(graphDir==""){
     nomBoxplot <- paste(graphName,"-boxplot",sep="")
   }else{
@@ -123,17 +147,21 @@ r2lBoxplot <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
   }
   boxplot(variable,main="",xlab="",ylab="")
   savePlot(filename=nomBoxplot,type=type)
-  cat("
-      \\begin{tabular}{@{}l@{}}
-         \\includegraphics[width=3cm]{",nomBoxplot,"}
-   ",latexNext)
+  cat("          \\begin{tabular}{@{}l@{}}
+             \\includegraphics[width=3cm]{",nomBoxplot,"}
+          \\end{tabular}\n",sep="")
 }
 
+
+#############################
+### End of the tabular and the begin
+### Used in : r2lNominal, r2lOrdianl, r2lDiscrete, r2lContinuous
+
 r2lEnd <- function(){
-  cat("
-    \\end{tabular}
+  cat("    \\end{tabular}
+
   \\end{center}
-  ");
+  ")
 }
 
 

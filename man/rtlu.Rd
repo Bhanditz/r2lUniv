@@ -140,7 +140,7 @@ Data are available on line: \url{http://christophe.genolini.free.fr/EPO/EPO2007-
 
 ########################
 ###### Step 1: Create the data
-
+par(ask=FALSE)
 V1 <- factor(LETTERS[floor(runif(50,1,4))])
 V2 <- rnorm(50,1,1)<0
 V3 <- ordered(LETTERS[floor(runif(50,1,4))])
@@ -157,12 +157,12 @@ V3 <- ordered(LETTERS[floor(runif(50,1,4))])
 ### The following code will create some files.
 ### So we first move in a directories.
 
-dir.create("exampleSingle")
+if(!file.exists("exampleSingle")){dir.create("exampleSingle")}else{}
 setwd("exampleSingle")
-try(rtlu(V1,fileOutput="First.tex",textBefore="\\\\section{Variable 1 to 3}",graphName="V1"))
-try(rtlu(V2,fileOut="Second.tex",graphName="V2"))
-try(rtlu(V3,fileOut="Third.tex",textBefore="\\\\newpage \\n This is variable 3",graphDir="P"))
-rtluMainFile(c("First.tex","Second.tex","Third.tex"))
+try(rtlu(V1,fileOutput="first.tex",textBefore="\\section{Variable 1 to 3}",graphName="V1"))
+try(rtlu(V2,fileOut="second.tex",graphName="V2"))
+try(rtlu(V3,fileOut="third.tex",textBefore="This is variable 3",graphDir="P"))
+rtluMainFile(text="\\input{first.tex}\n\\input{second.tex}\n\\input{third.tex}")
 setwd("..")
 
 
@@ -197,27 +197,34 @@ str(examCheating)
 ### The following code will create some files.
 ### So we first move in a directories.
 
-dir.create("exampleReal")
+if(!file.exists("exampleReal")){dir.create("exampleReal")}else{}
 setwd("exampleReal")
 
 ### Then we prepare the textBefore, for transition between variable
-textBefore <- c(
-  "\\\\tableofcontents\\n\\\\section{Global information}
-  \\\\subsection{What is your age?}",
-  "  \\\\subsection{What is your gender?}",
-  "  \\\\subsection{What is your level?}",
-  "  \\\\subsection{What is your field?}",
-  "\\\\section{Cheating variables}
-  \\\\subsection{Did you cheat at Bac?}",
-  "  \\\\subsection{Did you cheat high scool?}",
-  "  \\\\subsection{Cheating score}"
-)
-textAfter="For a detailled analysis, see
+
+textBefore <- paste("\\subsection{",names(examCheating)[c(2:5,18:20)],"}",sep="")
+
+text <- "\\tableofcontents
+\\section{Survey}
+  \\begin{enumerate}
+    \\item What is your age?
+    \\item What is your gender?
+    \\item What is your level?
+    \\item What is your field?
+    \\item Did you cheat at Bac?
+    \\item Did you cheat high scool?
+    \\item Cheating score
+  \\end{enumerate}
+\\section{Univariate analysis}
+  \\input{ExamCheat-univ.tex}
+
+\\section{More information?}
+For a detailled analysis, see
 http://christophe.genolini.free.fr/EPO/2007 Fraude/EPO2007-Fraude-Rapport.pdf"
 
 ### We can run r2lu
 try(rtlu(examCheating[,c(2:5,18:20)],fileOutput="ExamCheat-univ.tex",textBefore=textBefore))
-rtluMainFile(c("ExamCheat-univ.tex"))
+rtluMainFile("ExamCheat-main.tex",text=text)
 setwd("..")
 
 ### Then compile main.tex twice. It is ready !
