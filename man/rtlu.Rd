@@ -10,7 +10,7 @@
 }
 
 \usage{
-  rtlu(data,fileOutput="",textBefore="",graphDir="graphUniv",graphName="V",...)
+  rtlu(data,fileOutput="",textBefore="",textAfter="",graphDir="graphUniv",graphName="V",...)
 }
 
 \arguments{
@@ -28,6 +28,15 @@
     \code{textBefore} can have the lenght of the data.frame (this let
     the user to write a specific introduction for each variable), or can be
     of length 1. In this case, it is print before each variable
+    analysis. See examples for detail.}
+
+  \item{textAfter}{\code{[character] or [vector(character)]} : after
+    printing a variable analysis, \code{rtlu} can write a
+    text. If \code{rtlu} is apply on a single variable,
+    \code{textAfter} should be of lenght 1. If \code{rtlu} is apply on a \code{data.frame},
+    \code{textAfter} can have the lenght of the data.frame (this let
+    the user to write a specific conclusion for each variable), or can be
+    of length 1. In this case, it is print after each variable
     analysis. See examples for detail.}
 
   \item{graphDir}{\code{[character]};
@@ -148,9 +157,9 @@ V3 <- ordered(LETTERS[floor(runif(50,1,4))])
 
 dir.create("exampleSingle")
 setwd("exampleSingle")
-rtlu(V1,fileOutput="First.tex",textBefore="\\section{Variable 1 to 3}",graphName="V1")
+rtlu(V1,fileOutput="First.tex",textBefore="\\\\section{Variable 1 to 3}",graphName="V1")
 rtlu(V2,fileOut="Second.tex",graphName="V2")
-rtlu(V3,fileOut="Third.tex",textBefore="\\newpage \n This is variable 3",graphDir="P")
+rtlu(V3,fileOut="Third.tex",textBefore="\\\\newpage \\n This is variable 3",graphDir="P")
 rtluMainFile(c("First.tex","Second.tex","Third.tex"))
 setwd("..")
 
@@ -191,16 +200,18 @@ setwd("exampleReal")
 
 ### Then we prepare the textBefore, for transition between variable
 textBefore <- c(
-  "\\tableofcontents\n\\section{Global information}
-  \\subsection{What is your age?}",
-  "  \\subsection{What is your gender?}",
-  "  \\subsection{What is your level?}",
-  "  \\subsection{What is your field?}",
-  "\\section{Cheating variables}
-  \\subsection{Did you cheat at Bac?}",
-  "  \\subsection{Did you cheat high scool?}",
-  "  \\subsection{Cheating score}"
+  "\\\\tableofcontents\\n\\\\section{Global information}
+  \\\\subsection{What is your age?}",
+  "  \\\\subsection{What is your gender?}",
+  "  \\\\subsection{What is your level?}",
+  "  \\\\subsection{What is your field?}",
+  "\\\\section{Cheating variables}
+  \\\\subsection{Did you cheat at Bac?}",
+  "  \\\\subsection{Did you cheat high scool?}",
+  "  \\\\subsection{Cheating score}"
 )
+textAfter="For a detailled analysis, see
+http://christophe.genolini.free.fr/EPO/2007 Fraude/EPO2007-Fraude-Rapport.pdf"
 
 ### We can run r2lu
 rtlu(examCheating[,c(2:5,18:20)],fileOutput="ExamCheat-univ.tex",textBefore=textBefore)

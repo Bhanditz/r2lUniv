@@ -1,7 +1,7 @@
 \name{rtluMainFile}
 \alias{rtluMainFile}
 
-\title{Generation of LaTeX main document}
+\title{~ Generation of LaTeX main document ~}
 \description{
   This function generates a LaTeX main document design to include some files built by \code{rtlu}.
 }

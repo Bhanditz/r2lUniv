@@ -1,4 +1,5 @@
 \name{r2lUniv}
+\alias{r2lUniv}
 \alias{r2lUniv-package}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -7,7 +8,7 @@
   \tabular{ll}{
     Package: \tab r2lUniv\cr
     Type: \tab Package\cr
-    Version: \tab 0.9.1\cr
+    Version: \tab 0.9.2\cr
     Date: \tab 2009-29-01\cr
     License: \tab  GPL (>= 2) \cr
   }
