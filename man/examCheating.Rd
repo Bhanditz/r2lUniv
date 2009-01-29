@@ -1,39 +1,19 @@
 \name{examCheating}
 \alias{examCheating}
 
-\alias{Vnominal}
-\alias{Vordinal}
-\alias{Vdiscrete}
-\alias{Vcontinuous}
-
-\alias{Vfactor}
-\alias{Vlogical}
-\alias{Vordered}
-\alias{Vinteger}
-\alias{Vnumeric}
-
 \docType{data}
-\title{Exam Cheating at French University}
+\title{~ Data: Exam Cheating at French University ~}
 \description{
   This data set results from an enquiry leads by some second year
   Students from University Paris X - Nanterre. They build up a
   questionnaire to measure fraud during exam at university. This
-  is NOT a validate questionnaire, just an exercise done by some students
+  is not a validate questionnaire, just an exercise done by some students
   on a topic they choose -to make statistics learning more interactif
   (more fun ?)-.
 }
 
 \usage{
 data(examCheating)
-data(Vnominal)
-data(Vordinal)
-data(Vdiscrete)
-data(Vcontinuous)
-data(Vfactor)
-data(Vlogical)
-data(Vordered)
-data(Vinteger)
-data(Vnumeric)
 }
 \format{
   A data frame with 314 observations on the following 20 variables.
@@ -48,7 +28,7 @@ data(Vnumeric)
       after the licence and takes two years.}
     \item{\code{Field}}{\emph{What do you study ?}\cr
       Note:\code{LEA} is "Foreigh langage",
-      \code{SEGMI} is "Math", \code{SJAP} is "Law", \code{SSA} is "",
+      \code{SEGMI} is "Math", \code{SJAP} is "Law", \code{SSA} is "Social and Administrative Sciences",
       \code{STAPS} is "Sports"}
     \item{\code{RepeatingYear}}{\emph{Did you ever takes a class twice ?}\cr
       In France, a student that fail the final exam will be asked to
@@ -57,7 +37,7 @@ data(Vnumeric)
       Bac is a french national exam that take place between high school
       and university. The possible result are \code{Fail}
       \code{Remedial exam} \code{Pass} \code{Fairly good} \code{Good}
-      \code{Very good}  \code{Summa cum laude}} 
+      \code{Very good}  \code{Summa cum laude}}
     \item{\code{Peep}}{\emph{Did you ever peep during exams ?}}
     \item{\code{Whispering}}{\emph{Did you ever whisper to neighbors during exams ?}}
     \item{\code{PaperSwapping}}{\emph{Did you ever swap rough paper during exams ?}}
@@ -74,27 +54,13 @@ data(Vnumeric)
     \item{\code{HighSchoolCheat}}{\emph{Did you cheat during you high school
 	studies ?}}
     \item{\code{CheatScore}}{Sum of all the cheating
-      variables}{with convention \code{Never=0} \code{Rarely=1} 
-      \code{Sometimes=2} \code{Often=3} \code{Always=4})}
+      variables}{with convention \code{Never=0} \code{Rarely=1}
+      \code{Sometimes=2} \code{Often=3} \code{Always=4}}
   }
 }
 
-\details{
-  \itemize{
-    \item{\code{examCheating}}{All the variable}
-    \item{\code{Vnominal}}{Column \code{Field}}
-    \item{\code{Vordinal}}{Column \code{Peep}}
-    \item{\code{Vdiscrete}}{Column \code{Age}}
-    \item{\code{Vcontinous}}{Column \code{CheatScore}}
-    \item{\code{Vfactor}}{Column \code{Field}}
-    \item{\code{Vlogical}}{Column \code{RepeatingYear}}
-    \item{\code{Vordered}}{Column \code{Peep}}
-    \item{\code{Vinteger}}{Column \code{Age}}
-    \item{\code{Vnumeric}}{Column \code{CheatScore}}
-  }
-}
 
-\section{Author (lecturer)}{
+\section{Author}{
   Christophe Genolini \cr
   \email{christophe.genolini@free.fr}\cr
   PSIGIAM: Paris Sud Innovation Group in Adolescent Mental Health \cr
@@ -103,17 +69,36 @@ data(Vnumeric)
 
 \section{Author (students)}{L2 (2007-2008) groups TD1 and TD2}
 
+\section{English correction}{
+  Jean-Marc Chamot \cr
+  \email{jchamot@u-paris10.fr}\cr
+  Laboratoire "Sport & Culture" / "Sports & Culture" Laboratory \cr
+  University of Paris 10 / Nanterre
+}
+
+
+\references{LaTeX web site \url{http://www.latex-project.org/}\cr
+Data are available on line: \url{http://christophe.genolini.free.fr/EPO/EPO2007-Fraude.php}}
+
+
+
+\seealso{
+  \code{\link{r2lUniv-package}},
+  \code{\link{rtlu}},
+  \code{\link{rtluMainFile}},
+  \code{\link{examCheating}},
+  \code{\link{Sweave}},
+  \code{\link[Hmisc]{latex}}
+}
+
 
 \examples{
 data(examCheating)
 str(examCheating)
-
-data(Vnominal)
-str(Vnominal)
-
-data(Vordinal)
-str(Vordinal)
-
-### and so on...
 }
 \keyword{datasets}
+\keyword{print}        % Printing
+\keyword{interface}    % interface to other languages
+\keyword{utilities}    % Utilities
+\keyword{univar}       % Simple univariate statistics
+
