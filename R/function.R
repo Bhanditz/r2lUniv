@@ -79,61 +79,55 @@ r2lSummary <- function(variable,latexNext){
   cat("   ",latexNext)
 }
 
-r2lBarplot <- function(variable,latexNext,dirGraph="",graphName="V"){
-  if(dirGraph==""){
-    nomPSbarplot <- paste(graphName,"-barplot.eps",sep="")
+r2lBarplot <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
+  if(graphDir==""){
+    nomBarplot <- paste(graphName,"-barplot",sep="")
   }else{
-    nomPSbarplot <- paste(dirGraph,"/",graphName,"-barplot.eps",sep="")
+    nomBarplot <- paste(graphDir,"/",graphName,"-barplot",sep="")
   }
   if(class(variable)[1]=="discrete"){
     tabVar <- table(c(variable,range(na.omit(variable))[1]:range(na.omit(variable))[2]))-1
   }else{
     tabVar <- table(variable)
   }
-  postscript(file=nomPSbarplot,horizontal=FALSE,width=60,height=60)
-    barplot(tabVar,col="grey",main="",xlab="",ylab="")
-  dev.off()
+  barplot(tabVar,col="grey",main="",xlab="",ylab="")
+  savePlot(filename=nomBarplot,type=type)
   cat("      \\begin{tabular}{@{}l@{}}
-        \\epsfig{figure=",nomPSbarplot,",width=3cm}
+        \\includegraphics[width=3cm]{",nomBarplot,"}
       \\end{tabular}
-   ",latexNext)
+   ",latexNext,sep="")
 }
 
 
-r2lHist <- function(variable,latexNext,dirGraph="",graphName="V"){
-  if(dirGraph==""){
-    nomPShist <- paste(graphName,"-barplot.eps",sep="")
+r2lHist <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
+  if(graphDir==""){
+    nomHist <- paste(graphName,"-hist",sep="")
   }else{
-    nomPShist <- paste(dirGraph,"/",graphName,"-hist.eps",sep="")
+    nomHist <- paste(graphDir,"/",graphName,"-hist",sep="")
   }
-  postscript(file=nomPShist,horizontal=FALSE,width=60,height=60)
-    hist(variable,col="grey",main="",xlab="",ylab="")
-  dev.off()
+  hist(variable,col="grey",main="",xlab="",ylab="")
+  savePlot(filename=nomHist,type=type)
   cat("
       \\begin{tabular}{@{}l@{}}
-        \\epsfig{figure=",nomPShist,",width=3cm}
+         \\includegraphics[width=3cm]{",nomHist,"}
       \\end{tabular}
-   ",latexNext)
+  ",latexNext,sep="")
 }
 
 
-r2lBoxplot <- function(variable,latexNext,dirGraph="",graphName="V"){
-  if(dirGraph==""){
-    nomPSboxplot <- paste(graphName,"-boxplot.eps",sep="")
+r2lBoxplot <- function(variable,latexNext,graphDir="",graphName="V",type="png"){
+  if(graphDir==""){
+    nomBoxplot <- paste(graphName,"-boxplot",sep="")
   }else{
-    nomPSboxplot <- paste(dirGraph,"/",graphName,"-boxplot.eps",sep="")
+    nomBoxplot <- paste(graphDir,"/",graphName,"-boxplot",sep="")
   }
-  postscript(file=nomPSboxplot,horizontal=FALSE,width=40,height=80)
-    boxplot(variable,main="",xlab="",ylab="")
-  dev.off()
+  boxplot(variable,main="",xlab="",ylab="")
+  savePlot(filename=nomBoxplot,type=type)
   cat("
       \\begin{tabular}{@{}l@{}}
-        \\epsfig{figure=",nomPSboxplot,",width=2cm}
-      \\end{tabular}
+         \\includegraphics[width=3cm]{",nomBoxplot,"}
    ",latexNext)
 }
-
-
 
 r2lEnd <- function(){
   cat("
